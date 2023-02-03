@@ -14,8 +14,8 @@ const App = () => {
     bad: 0,
   });
 
-   const onLeaveFeedback = name => {
-		setFeedback(prevState => {
+  const onLeaveFeedback = name => {
+    setFeedback(prevState => {
       return { ...prevState, [name]: prevState[name] + 1 };
     });
   };
@@ -24,43 +24,37 @@ const App = () => {
     const { good, neutral, bad } = feedback;
     const total = good + neutral + bad;
     return total;
-  }
+  };
 
   const countPositiveFeedbackPercentage = () => {
     const total = countTotalFeedback();
     if (!total) {
       return 0;
     }
-    const {good} = feedback;
-    const result = ((good / total) * 100).toFixed(2)
+    const { good } = feedback;
+    const result = ((good / total) * 100).toFixed(2);
     return Number(result);
-  }
+  };
 
   const options = Object.keys(feedback);
 
-    return (
-      <>
-        <Section title="Please leave feedback">
-          <FeedbackOptions
-            options={options}
-            onLeaveFeedback={onLeaveFeedback}
+  return (
+    <>
+      <Section title="Please leave feedback">
+        <FeedbackOptions options={options} onLeaveFeedback={onLeaveFeedback} />
+      </Section>
+      <Section title={`Statistics`}>
+        {countTotalFeedback() > 0 ? (
+          <Statistics
+            total={countTotalFeedback()}
+            positivePercentage={countPositiveFeedbackPercentage()}
           />
-        </Section>
-        <Section title={`Statistics`}>
-          {countTotalFeedback() > 0 ? (
-            <Statistics
-              total={countTotalFeedback()}
-              positivePercentage={countPositiveFeedbackPercentage()}
-            />
-          ) : (
-            <Notification message={`There is no feedback`} />
-          )}
-        </Section>
-      </>
-    );
-
-
+        ) : (
+          <Notification message={`There is no feedback`} />
+        )}
+      </Section>
+    </>
+  );
 };
 
 export default App;
-
