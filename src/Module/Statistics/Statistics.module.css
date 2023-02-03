@@ -1,0 +1,12 @@
+.blockStatistics {
+	margin: 20px auto;
+	width: 300px;
+	padding: 10px;
+	border: 1px solid gray;
+	border-radius: 5px;
+	background-color: white;
+}
+
+.statisticValue {
+	font-size: 16px;
+}

@@ -1,0 +1,13 @@
+.block {
+	margin: 50px auto;
+	width: 400px;
+	padding: 10px;
+	border: 1px solid gray;
+	border-radius: 5px;
+	background-color: white;
+}
+
+.title {
+	font-size: 24px;
+	margin: 0 0 20px;
+}
