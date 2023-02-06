@@ -8,20 +8,30 @@ import Notification from './Statistics/Notification';
 import './App.module.css';
 
 const App = () => {
-  const [feedback, setFeedback] = useState({
-    good: 0,
-    neutral: 0,
-    bad: 0,
-  });
+  const [good, setGood] = useState(0);
+  const [neutral, setNeutral] = useState(0);
+  const [bad, setBad] = useState(0);
 
   const onLeaveFeedback = name => {
-    setFeedback(prevState => {
-      return { ...prevState, [name]: prevState[name] + 1 };
-    });
+    switch (name) {
+      case 'good':
+        setGood(prevGood => prevGood + 1);
+        break;
+      case 'neutral':
+        setNeutral(prevNeutral => prevNeutral + 1);
+        break;
+      case 'bad':
+        setBad(prevBad => prevBad + 1);
+        break;
+
+      default:
+        break;
+    }
   };
 
+  const options = Object.keys({ good, neutral, bad });
+
   const countTotalFeedback = () => {
-    const { good, neutral, bad } = feedback;
     const total = good + neutral + bad;
     return total;
   };
@@ -31,12 +41,9 @@ const App = () => {
     if (!total) {
       return 0;
     }
-    const { good } = feedback;
     const result = ((good / total) * 100).toFixed(2);
     return Number(result);
   };
-
-  const options = Object.keys(feedback);
 
   return (
     <>
@@ -46,6 +53,9 @@ const App = () => {
       <Section title={`Statistics`}>
         {countTotalFeedback() > 0 ? (
           <Statistics
+            good={good}
+            neutral={neutral}
+            bad={bad}
             total={countTotalFeedback()}
             positivePercentage={countPositiveFeedbackPercentage()}
           />
